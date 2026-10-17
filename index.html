@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff0f4" />
+    <title>For the special one ♡</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap");
+
+      :root {
+        --pink: #ff86a7;
+        --deep-pink: #f05c89;
+        --light-pink: #fff0f4;
+        --cream: #fffaf0;
+        --brown: #654b50;
+        --muted: #a7838b;
+        --white: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: "Nunito", sans-serif;
+        background: var(--light-pink);
+        color: var(--brown);
+        overflow-x: hidden;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      button:focus-visible {
+        outline: 3px solid var(--deep-pink);
+        outline-offset: 4px;
+      }
+
+      #app {
+        min-height: 100vh;
+        min-height: 100dvh;
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 12% 15%, #ffe0e9 0 7%, transparent 8%),
+          radial-gradient(circle at 90% 80%, #ffe3c9 0 9%, transparent 10%),
+          linear-gradient(140deg, #fff4f6, #fff8ee);
+      }
+
+      .screen {
+        min-height: 100vh;
+        min-height: 100dvh;
+        width: 100%;
+        padding: 30px 20px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        position: relative;
+        isolation: isolate;
+      }
+
+      .screen.active {
+        display: flex;
+        animation: appear 0.6s ease both;
+      }
+
+      @keyframes appear {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .decor {
+        position: absolute;
+        font-size: 22px;
+        opacity: 0.65;
+        pointer-events: none;
+        animation: float 4s ease-in-out infinite;
+        z-index: -1;
+      }
+
+      .decor:nth-child(1) {
+        top: 12%;
+        left: 9%;
+      }
+      .decor:nth-child(2) {
+        top: 23%;
+        right: 10%;
+        animation-delay: -1s;
+      }
+      .decor:nth-child(3) {
+        bottom: 18%;
+        left: 12%;
+        animation-delay: -2s;
+      }
+      .decor:nth-child(4) {
+        bottom: 12%;
+        right: 13%;
+        animation-delay: -3s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-8deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(8deg);
+        }
+      }
+
+      .puppy {
+        font-size: clamp(78px, 15vw, 125px);
+        line-height: 1.3;
+        filter: drop-shadow(0 9px 0 #f7d4dc);
+        animation: puppyBounce 2.5s ease-in-out infinite;
+      }
+
+      @keyframes puppyBounce {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-3deg);
+        }
+        50% {
+          transform: translateY(-9px) rotate(3deg);
+        }
+      }
+
+      .eyebrow {
+        color: var(--deep-pink);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin: 12px 0;
+      }
+
+      h1 {
+        font-size: clamp(28px, 5.5vw, 47px);
+        line-height: 1.2;
+        font-weight: 900;
+        max-width: 650px;
+        margin: 10px 0;
+        letter-spacing: -1.3px;
+      }
+
+      h1 span {
+        color: var(--deep-pink);
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.8;
+        max-width: 430px;
+        margin: 10px auto 0;
+      }
+
+      .button-row {
+        width: 100%;
+        max-width: 480px;
+        min-height: 100px;
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 14px;
+        position: relative;
+      }
+
+      .btn {
+        padding: 14px 27px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 900;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease,
+          background 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .btn-yes {
+        color: white;
+        background: linear-gradient(135deg, #ff91af, #f35c8b);
+        box-shadow:
+          0 8px 0 #e75d88,
+          0 13px 24px #f5a3ba55;
+        position: relative;
+        z-index: 5;
+        transform-origin: center;
+      }
+
+      .btn-yes:active {
+        filter: brightness(0.96);
+      }
+
+      .btn-no {
+        color: #a56e7e;
+        background: white;
+        border: 2px solid #ffe0e8;
+        box-shadow: 0 5px 0 #f7dce3;
+        position: relative;
+        z-index: 6;
+      }
+
+      .hint {
+        font-size: 12px;
+        color: #bd98a1;
+        margin-top: 20px;
+        min-height: 20px;
+      }
+
+      .card {
+        width: min(100%, 570px);
+        padding: clamp(24px, 5vw, 42px);
+        background: #ffffffc9;
+        border: 1px solid #ffffff;
+        border-radius: 30px;
+        box-shadow: 0 18px 60px #d99aaa24;
+        backdrop-filter: blur(12px);
+      }
+
+      .letter-icon {
+        font-size: 49px;
+        margin-bottom: 14px;
+        display: inline-block;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .letter {
+        margin-top: 24px;
+        padding: 25px;
+        border-radius: 20px;
+        background: #fff9f0;
+        border: 1px dashed #f3b2c3;
+        text-align: left;
+        font-size: 15px;
+        line-height: 1.95;
+        white-space: pre-line;
+      }
+
+      .signature {
+        font-family: "Pacifico", cursive;
+        color: var(--deep-pink);
+        font-size: 22px;
+        margin-top: 20px;
+      }
+
+      .action {
+        color: white;
+        background: var(--deep-pink);
+        padding: 14px 25px;
+        border-radius: 999px;
+        font-weight: 900;
+        font-size: 14px;
+        margin-top: 25px;
+        box-shadow: 0 6px 0 #d94c79;
+        transition: transform 0.2s ease;
+      }
+
+      .action:active {
+        transform: translateY(3px);
+        box-shadow: 0 3px 0 #d94c79;
+      }
+
+      .note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 17px;
+      }
+
+      .big-heart {
+        font-size: 90px;
+        animation: heartBeat 1.3s ease-in-out infinite;
+      }
+
+      @keyframes heartBeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        15% {
+          transform: scale(1.12);
+        }
+        30% {
+          transform: scale(1);
+        }
+        45% {
+          transform: scale(1.08);
+        }
+      }
+
+      .paw {
+        display: inline-block;
+        font-size: 24px;
+        margin: 8px;
+        opacity: 0.8;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 15px;
+        color: #c49ba6;
+        font-size: 10px;
+        letter-spacing: 1px;
+      }
+
+      #confetti {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 20;
+        overflow: hidden;
+      }
+
+      .confetti-piece {
+        position: absolute;
+        top: -30px;
+        animation: fall linear forwards;
+        pointer-events: none;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(720deg);
+          opacity: 0.15;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .screen {
+          padding: 24px 17px;
+        }
+        .button-row {
+          gap: 10px;
+        }
+        .btn {
+          padding: 13px 21px;
+        }
+        .letter {
+          padding: 18px;
+          font-size: 14px;
+        }
+        .card {
+          border-radius: 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="decor">♡</div>
+      <div class="decor">✿</div>
+      <div class="decor">🐾</div>
+      <div class="decor">♡</div>
+
+      <div id="confetti"></div>
+
+      <!-- SCREEN 1: YES / NO GAME -->
+      <section class="screen active" id="question">
+        <div class="puppy" aria-label="Cute Shiba Inu">🐕</div>
+        <div class="eyebrow"></div>
+
+        <h1 id="questionTitle">
+          Hey, Elll <span>I Love U</span><br />
+          Do U love me too?
+        </h1>
+
+        <p class="subtitle" id="questionText">Please Sa yesss<br /></p>
+
+        <div class="button-row" id="buttonArea">
+          <button class="btn btn-yes" id="yesButton" onclick="sayYes()">
+            YES! ♡
+          </button>
+
+          <button class="btn btn-no" id="noButton" onclick="sayNo()">
+            NO 🙄
+          </button>
+        </div>
+
+        <p class="hint" id="hint"></p>
+        <div class="footer"></div>
+      </section>
+
+      <!-- SCREEN 2: LETTER -->
+      <section class="screen" id="letterScreen">
+        <div class="card">
+          <div class="letter-icon">💌</div>
+          <div class="eyebrow">baca yahhhh</div>
+          <h1>For <span id="letterName">you</span> ♡</h1>
+
+          <div class="letter" id="letterContent"></div>
+
+          <div class="signature" id="signature">
+            — Your favorite troublemaker ♡
+          </div>
+
+          <button class="action" onclick="goTo('surprise')">
+            Okay, that was cute →
+          </button>
+
+          <p class="note">Hehehe</p>
+        </div>
+      </section>
+
+      <!-- SCREEN 3: SURPRISE -->
+      <section class="screen" id="surprise">
+        <div class="big-heart">💗</div>
+        <div class="eyebrow">One more thing...</div>
+
+        <h1>Guess what, <span>?</span></h1>
+
+        <p class="subtitle">i love u more, more did i can't explain</p>
+
+        <div style="font-size: 48px; margin-top: 20px"></div>
+
+        <button
+          class="action"
+          onclick="
+            goTo('final');
+            showerConfetti();
+          "
+        >
+          One last thing... ✨
+        </button>
+      </section>
+
+      <!-- SCREEN 4: FINAL -->
+      <section class="screen" id="final">
+        <div class="puppy">🐕</div>
+        <div class="eyebrow">Finally Official</div>
+
+        <h1>sorry if <span>i terlalu</span> exited ♡</h1>
+
+        <p class="subtitle"></p>
+
+        <div style="margin-top: 20px; font-size: 30px">♡ ♡</div>
+
+        <button class="action" onclick="restart()">
+          Replay the surprise ↻
+        </button>
+
+        <p class="note">
+          Made with a little bit of code and a lot of affection.
+        </p>
+      </section>
+    </div>
+
+    <script>
+      /* =========================================
+   PERSONALIZE YOUR WEBSITE HERE
+   Edit these values to make it yours.
+========================================= */
+
+      const CONFIG = {
+        nickname: "Elsya",
+        sender: "Your friendly neighborhood boyfriend",
+
+        letter: `HEY, ELSYAAA!! 💗
+
+Okay, first of all...
+
+Aku punya pacar sekarang??
+
+WAIT. WHAT??
+
+Anjir, bentar, aku masih berusaha memproses informasi ini. Kayaknya otak aku butuh update software dulu. 😭
+
+Anyway, hi, girlfriend. Hehehe.
+
+ANJIR, AKU BISA MANGGIL KAMU GIRLFRIEND SEKARANG.
+
+Oke, enough. Sebelum aku makin aneh, kita lanjut.
+
+Jujur, aku nggak punya pengalaman soal beginian. Jadi kalau suatu hari aku tiba-tiba ngomong sesuatu yang random, terlalu banyak bercanda, atau malah diem karena bingung mau ngomong apa...
+
+Please understand that my brain is NOT braining. 😭
+
+Aku mungkin bakal sering ngejek kamu.
+Mungkin bakal gangguin kamu pas kamu lagi serius.
+Mungkin bakal ngirim sesuatu yang nggak penting cuma karena aku kepikiran kamu.
+
+Terus pas kamu bales, aku bakal pura-pura biasa aja.
+
+Padahal aslinya:
+"OH MY GOD, SHE REPLIED."
+
+...Yeah. I'm cooked. 
+
+Tapi serius sebentar, ya.
+
+Aku seneng bisa kenal sama kamu, Elsya.
+Aku seneng sekarang kita bisa lebih dekat, dan aku pengen kita punya banyak cerita buat dikenang nanti.
+
+Aku nggak bakal sok tahu soal gimana caranya jadi pacar yang baik, karena honestly, this is my first time, by the way. 😭
+
+Aku mungkin bakal bikin kesalahan.
+Kadang mungkin aku nggak peka.
+Kadang aku mungkin bingung harus ngapain.
+
+Tapi aku mau belajar.
+
+Bukan karena aku harus jadi boyfriend yang sempurna, tapi karena aku pengen kamu ngerasa dihargai, didengerin, dan nyaman jadi diri kamu sendiri waktu sama aku.
+
+And hey, you can tell me things, okay?
+
+Kalau ada yang bikin kamu nggak nyaman, bilang aja. Aku bukan Spider-Man yang bisa baca situasi dengan sempurna. Bahkan Spider-Man aja sering bikin masalah. 
+
+Oh, ngomong-ngomong...
+
+Jangan seneng dulu karena sekarang kamu punya pacar.
+
+Pacar kamu ini bisa sangat menyebalkan, suka bercanda di waktu yang salah, dan mungkin bakal mengirim meme yang nggak ada hubungannya sama percakapan kita.
+
+You've been warned. 😌
+
+Tapi kalau suatu hari kamu lagi capek, lagi banyak pikiran, atau cuma pengen cerita hal random tentang hari kamu...
+
+I'll listen.
+
+Even if the story is about something I know absolutely NOTHING about.
+
+Aku bakal berusaha ngerti, walaupun mungkin ujung-ujungnya aku nanya:
+
+"Wait, jadi siapa yang marah sama siapa??" 
+
+SORRY. I'M TRYING.
+
+Anyway, El...
+
+Thanks for giving this awkward guy a chance.
+
+I don't know exactly what I'm doing yet, but I'm happy that I get to figure it out with you.
+
+Pelan-pelan aja, ya?
+We don't have to be perfect at this.
+
+Kita jalanin, kita belajar, kita ketawa bareng.
+
+Dan kalau aku tiba-tiba salting gara-gara hal kecil yang kamu lakuin...
+
+NO YOU DIDN'T SEE THAT.
+THAT NEVER HAPPENED.
+CLASSIFIED INFORMATION.
+
+Okay, I'm ending this letter before I embarrass myself any further.
+
+Oh, one last thing...
+
+Aku sayang kamu, El. ❤️
+
+...
+
+OKAY BYE.
+WHY AM I STILL HERE.
+CLOSE THIS LETTER.
+I'M BLUSHING. 😭`,
+
+        signOff: "— Your friendly neighborhood boyfriend ❤️",
+      };
+
+      /* =========================================
+   INITIAL SETUP
+========================================= */
+
+      const yesButton = document.getElementById("yesButton");
+      const noButton = document.getElementById("noButton");
+      const questionTitle = document.getElementById("questionTitle");
+      const questionText = document.getElementById("questionText");
+      const hint = document.getElementById("hint");
+
+      let noCount = 0;
+      let yesScale = 1;
+
+      const noMessages = [
+        {
+          title: "Wait... <span>really?</span> 🥺",
+          text: "You haven't even seen the surprise yet!",
+          button: "STILL NO 😤",
+          hint: "",
+        },
+        {
+          title: "Seriously ?",
+          text: "Look at that face. LOOK AT IT.",
+          button: "NOPE 🙃",
+          hint: "",
+        },
+        {
+          title: "Ohhhh come onnnn</span> 😭",
+          text: "pleaseeeee say yessssss",
+          button: "I SAID NO",
+          hint: "",
+        },
+        {
+          title: "ELSYAAAA. <span>PLEASEEEEE.</span> ",
+          text: "At this point, the button is doing more work than me.",
+          button: "NEVER ",
+          hint: "",
+        },
+        {
+          title: "YOU HAVE TO BE <span>KIDDING.</span> 😭",
+          text: "hmmm.",
+          button: "ABSOLUTELY NOT",
+          hint: "Okay",
+        },
+        {
+          title: "FINE. <span>YOU WIN.</span> 😤",
+          text: "Happy now?.",
+          button: "STILL HERE 😭",
+          hint: "",
+        },
+      ];
+
+      function sayNo() {
+        noCount++;
+
+        // Make YES grow every time NO is pressed.
+        yesScale = Math.min(1 + noCount * 0.48, 5.2);
+        yesButton.style.transform = `scale(${yesScale})`;
+
+        // Keep the YES button visually above most content.
+        yesButton.style.zIndex = "10";
+
+        // Change the playful messages.
+        const index = Math.min(noCount - 1, noMessages.length - 1);
+        const message = noMessages[index];
+
+        questionTitle.innerHTML = message.title;
+        questionText.innerHTML = message.text;
+        noButton.textContent = message.button;
+        hint.textContent = message.hint;
+
+        // Add a tiny shake to the NO button.
+        noButton.animate(
+          [
+            { transform: "translateX(0)" },
+            { transform: "translateX(-5px)" },
+            { transform: "translateX(5px)" },
+            { transform: "translateX(0)" },
+          ],
+          { duration: 220 },
+        );
+
+        // After several NO presses, YES becomes a giant full-screen option.
+        if (noCount >= 7) {
+          yesButton.style.position = "fixed";
+          yesButton.style.inset = "0";
+          yesButton.style.width = "100vw";
+          yesButton.style.height = "100vh";
+          yesButton.style.height = "100dvh";
+          yesButton.style.borderRadius = "0";
+          yesButton.style.transform = "none";
+          yesButton.style.fontSize = "clamp(35px, 8vw, 70px)";
+          yesButton.style.boxShadow = "none";
+          yesButton.style.zIndex = "15";
+          yesButton.innerHTML = "OKAY, YES! ♡";
+          noButton.style.zIndex = "16";
+          hint.style.zIndex = "17";
+        }
+      }
+
+      function sayYes() {
+        // Reset the growing button before showing the letter.
+        yesButton.removeAttribute("style");
+        noButton.removeAttribute("style");
+
+        document.getElementById("letterName").textContent = CONFIG.nickname;
+        document.getElementById("letterContent").textContent = CONFIG.letter;
+        document.getElementById("signature").textContent = CONFIG.signOff;
+
+        goTo("letterScreen");
+        showerConfetti();
+      }
+
+      function goTo(screenId) {
+        document.querySelectorAll(".screen").forEach((screen) => {
+          screen.classList.remove("active");
+        });
+
+        const target = document.getElementById(screenId);
+        if (target) {
+          target.classList.add("active");
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function showerConfetti() {
+        const container = document.getElementById("confetti");
+        const symbols = ["♡", "💗", "🌸", "✨", "🐾"];
+
+        for (let i = 0; i < 32; i++) {
+          const piece = document.createElement("span");
+          piece.className = "confetti-piece";
+          piece.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+          piece.style.left = Math.random() * 100 + "%";
+          piece.style.fontSize = 12 + Math.random() * 18 + "px";
+          piece.style.animationDuration = 2.5 + Math.random() * 3 + "s";
+          piece.style.animationDelay = Math.random() * 1.2 + "s";
+
+          container.appendChild(piece);
+          setTimeout(() => piece.remove(), 6500);
+        }
+      }
+
+      function restart() {
+        noCount = 0;
+        yesScale = 1;
+
+        yesButton.removeAttribute("style");
+        noButton.removeAttribute("style");
+
+        yesButton.innerHTML = "YES! ♡";
+        noButton.textContent = "NO 🙄";
+
+        questionTitle.innerHTML = `Hey, <span>${escapeHTML(CONFIG.nickname)}!</span><br>Wanna open your surprise?`;
+
+        questionText.innerHTML =
+          "A certain someone made something for you.<br>" +
+          "(That someone is definitely not a genius. Just saying.)";
+
+        hint.textContent = "Choose wisely. The puppy is watching. 👀";
+
+        goTo("question");
+      }
+
+      function escapeHTML(value) {
+        return String(value).replace(
+          /[&<>"']/g,
+          (character) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[character],
+        );
+      }
+    </script>
+  </body>
+</html>
